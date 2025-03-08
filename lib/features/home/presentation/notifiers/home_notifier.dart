@@ -23,13 +23,14 @@ final class HomeNotifier extends StateNotifier<HomeState> {
     try {
       await Future.delayed(const Duration(milliseconds: 1500));
 
-      UserEntity? user;
+      UserEntity user;
       ReservationEntity? reservation;
 
       user = await _getUserUseCase();
-
+      print('################### User! ${user.id}');
       reservation = await _getReservationUseCase(user.id);
 
+      print('################### Reservation! ${reservation?.reservationId}');
       state = HomeState.success(user: user, reservation: reservation);
     } catch (e) {
       state = HomeState.error('Failed to load Home Page: ${e.toString()}');

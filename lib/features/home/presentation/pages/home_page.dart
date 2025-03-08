@@ -85,17 +85,17 @@ final class _HomePageState extends ConsumerState<HomePage> {
     final user = state.user;
     final reservation = state.reservation;
 
+    print('Reservation is not null ${reservation?.departureBus}');
+    print('Reservation is not null ${reservation?.reservationId}');
+
     if (reservation != null) {
       return HomeReservationWidget(
         user: user,
         reservation: reservation,
-        onNotificationButtonPressed: () =>
-            context.router.pushNamed('/notification'),
+        onNotificationButtonPressed: () => context.router.pushNamed('/notification'),
         onViewMapButtonPressed: () => context.router.pushNamed('/map'),
         bus: ref.read(homeNotifierProvider.notifier).getNextBus(),
-        arrivalTime: _getArrivalTimeText(ref
-            .read(homeNotifierProvider.notifier)
-            .calculateTimeUntilNextBus()),
+        arrivalTime: _getArrivalTimeText(ref.read(homeNotifierProvider.notifier).calculateTimeUntilNextBus()),
       );
     } else {
       return _buildHomeSearchWidget(state);
@@ -147,6 +147,7 @@ final class _HomePageState extends ConsumerState<HomePage> {
         final returnAddress = state.returnAddress;
         final departureTime = state.departureTime;
         final returnTime = state.returnTime;
+
         if (departureAddress != null &&
             returnAddress != null &&
             departureTime != null &&
